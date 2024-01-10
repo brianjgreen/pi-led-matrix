@@ -9,4 +9,5 @@ edition = "2021"
 rs_ws281x = "0.5.1"
 
 [dependencies]
+rand = "0.8.5"
 ril = { version = "0.10.1", features = ["all"] }
