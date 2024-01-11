@@ -1,5 +1,6 @@
 {
     "rust-analyzer.linkedProjects": [
-        ".\\rust\\sim-led-rust\\Cargo.toml"
-    ]
+        ".\\rust\\pi-led-rust\\Cargo.toml"
+    ],
+    "rust-analyzer.showUnlinkedFileNotification": false
 }

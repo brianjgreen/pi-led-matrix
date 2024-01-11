@@ -1,14 +1,26 @@
-#[cfg(target_arch = "arm")]
-use rs_ws281x::{ChannelBuilder, Controller, ControllerBuilder, StripType} ;
-use ril::draw::Rectangle;
 use ril::prelude::*;
-use ril::ResizeAlgorithm::Nearest;
-
-// use std::time::Duration;
-use std::{thread, time};
+#[cfg(target_arch = "arm")]
+use rs_ws281x::{ChannelBuilder, Controller, ControllerBuilder, StripType};
 
 mod effects;
 use crate::effects::pong::pong;
+mod libs;
+#[cfg(target_arch = "arm")]
+use crate::libs::raspberrypi::{Finish, Init, Render};
+#[cfg(not(target_arch = "arm"))]
+use crate::libs::simulation::{finish, init, render};
+
+pub fn led_init() {
+    init();
+}
+
+pub fn led_render(image: Image<Rgba>) {
+    render(image);
+}
+
+pub fn led_finish() -> ril::Result<()> {
+    return finish();
+}
 
 #[cfg(target_arch = "arm")]
 fn draw_color_field(controller: &mut Controller, color: [u8; 4], wait_time: Duration) {
@@ -52,21 +64,6 @@ fn main() {
 
 #[cfg(not(target_arch = "arm"))]
 fn main() -> ril::Result<()> {
-    pong();
-    /*
-    let mut output = ImageSequence::<Rgba>::new();
-    for i in 0..10 {
-        let mut image: Image<Rgba> = Image::new(60, 30, Rgba::new(0, 0, i * 20 as u8, 128));
-
-        let rectangle: Rectangle<Rgba> = Rectangle::at((i * 2).into(), (i * 2).into())
-            .with_size(4, 4)
-            .with_fill(Rgba::white());
-        image.draw(&rectangle);
-
-        image.resize(600, 300, Nearest);
-        output.push_frame(image.into());
-    }
-    output.save_inferred("output.gif")?;
-    */
+    let _ = pong();
     Ok(())
 }

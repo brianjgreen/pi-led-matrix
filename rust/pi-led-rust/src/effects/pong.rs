@@ -1,7 +1,7 @@
-use ril::draw::{Rectangle, Ellipse, Line};
-use ril::prelude::*;
-use ril::ResizeAlgorithm::Nearest;
+use super::super::{finish, init, render};
 use rand::prelude::*;
+use ril::draw::{Line, Rectangle};
+use ril::prelude::*;
 
 fn move_paddle(paddle_y: u32, ball_y: u32) -> u32 {
     let mut new_paddle_y: u32 = paddle_y;
@@ -10,7 +10,7 @@ fn move_paddle(paddle_y: u32, ball_y: u32) -> u32 {
     let y_max: u32 = 30 - 1;
 
     if ball_y > paddle_y + paddle_midpoint {
-        if paddle_y < y_max - paddle_height - 1{
+        if paddle_y < y_max - paddle_height - 1 {
             new_paddle_y += 1;
         }
     } else if paddle_y > 1 {
@@ -42,10 +42,10 @@ pub fn pong() -> ril::Result<()> {
         y = 1;
     }
 
-    let mut output = ImageSequence::<Rgba>::new();
-    for i in 0..100 {
-        let mut image: Image<Rgba> = Image::new(60, 30, Rgba::new(0,0,0,255));
-    
+    init();
+    for _i in 0..100 {
+        let mut image: Image<Rgba> = Image::new(60, 30, Rgba::new(0, 0, 0, 255));
+
         if x_vector {
             if x + 1 <= x_min || x + 1 >= x_max {
                 x_vector = false;
@@ -55,7 +55,7 @@ pub fn pong() -> ril::Result<()> {
                 x_vector = true;
             }
         }
-        
+
         if y_vector {
             if y + 1 <= y_min || y + 1 >= y_max {
                 y_vector = false;
@@ -64,7 +64,7 @@ pub fn pong() -> ril::Result<()> {
             if y - 1 <= y_min || y - 1 >= y_max {
                 y_vector = true;
             }
-        } 
+        }
 
         if x_vector {
             x += 1;
@@ -94,16 +94,15 @@ pub fn pong() -> ril::Result<()> {
 
         // Draw dashed line in middle of field
         for i in 1..7 {
-            let rectangle: Rectangle<Rgba> = Rectangle::at(29, i*4)
-            .with_size(1, 2)
-            .with_fill(Rgba::white());
+            let rectangle: Rectangle<Rgba> = Rectangle::at(29, i * 4)
+                .with_size(1, 2)
+                .with_fill(Rgba::white());
             image.draw(&rectangle);
         }
 
         // Draw ball
-        let rectangle: Rectangle<Rgba> = Rectangle::at(x, y)
-            .with_size(1, 1)
-            .with_fill(Rgba::white());
+        let rectangle: Rectangle<Rgba> =
+            Rectangle::at(x, y).with_size(1, 1).with_fill(Rgba::white());
         image.draw(&rectangle);
 
         // Draw paddles
@@ -111,16 +110,14 @@ pub fn pong() -> ril::Result<()> {
             .with_size(2, 5)
             .with_fill(Rgba::white());
         image.draw(&rectangle);
-    
+
         let rectangle: Rectangle<Rgba> = Rectangle::at(x_max, right_paddle_y)
             .with_size(2, 5)
             .with_fill(Rgba::white());
         image.draw(&rectangle);
 
-        // Increase size to make the animated GIF viewable
-        image.resize(600, 300, Nearest);
-        output.push_frame(image.into());
+        render(image);
     }
-    output.save_inferred("output.gif")?;
+    let _ = finish();
     Ok(())
 }
