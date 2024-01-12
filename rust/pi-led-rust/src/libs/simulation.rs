@@ -5,7 +5,7 @@ use std::cell::RefCell;
 thread_local!(static SIM_GIF: RefCell<ImageSequence<Rgba>> = RefCell::new(<ril::ImageSequence<_>>::new()));
 
 pub fn init() {
-    println!("New output!")
+    println!("See output.gif")
 }
 
 pub fn render(mut image: Image<Rgba>) {
