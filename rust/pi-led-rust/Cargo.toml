@@ -11,3 +11,5 @@ rs_ws281x = "0.5.1"
 [dependencies]
 rand = "0.8.5"
 ril = { version = "0.10.1", features = ["all"] }
+serde = { version = "1.0.195", features = ["derive"] }
+toml = "0.8.8"

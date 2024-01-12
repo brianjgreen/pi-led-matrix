@@ -4,25 +4,22 @@ use rs_ws281x::{ChannelBuilder, Controller, ControllerBuilder, StripType};
 use ril::prelude::*;
 #[cfg(target_arch = "arm")]
 use std::cell::RefCell;
+#[cfg(target_arch = "arm")]
+use super::config::get_hardware;
 
 #[cfg(target_arch = "arm")]
 thread_local!(static CONTROLLER: RefCell<Controller> = RefCell::new(ControllerBuilder::new().dma(10)
 .channel(
     0, // Channel Index
     ChannelBuilder::new()
-        .pin(12) // GPIO 18 = PWM0
-        .count(1800) // Number of LEDs
+        .pin(get_hardware("pin")) // GPIO 18 = PWM0
+        .count(get_hardware("columns") * get_hardware("rows")) // Number of LEDs
         .strip_type(StripType::Ws2812)
-        .brightness(20) // default: 255
+        .brightness(get_hardware("brightness")) // default: 255
         .build(),
 )
 .build()
 .unwrap()));
-
-#[cfg(target_arch = "arm")]
-pub fn init() {
-   println!("LEts go!");
-}
 
 #[allow(unused_mut)]
 #[cfg(target_arch = "arm")]
