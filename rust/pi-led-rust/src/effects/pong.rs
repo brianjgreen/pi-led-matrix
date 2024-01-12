@@ -1,7 +1,8 @@
-use super::super::{finish, init, render};
+use super::super::{finish, render};
 use rand::prelude::*;
 use ril::draw::{Line, Rectangle};
 use ril::prelude::*;
+use super::super::libs::config::get_hardware;
 
 fn move_paddle(paddle_y: u32, ball_y: u32) -> u32 {
     let mut new_paddle_y: u32 = paddle_y;
@@ -25,8 +26,8 @@ pub fn pong() -> ril::Result<()> {
     let mut y_vector: bool = true;
     let x_min: u32 = 3;
     let y_min: u32 = 0;
-    let x_max: u32 = 60 - 4;
-    let y_max: u32 = 30 - 1;
+    let x_max: u32 = get_hardware("columns") as u32 - 4;
+    let y_max: u32 = get_hardware("rows") as u32 - 1;
     let y_midpoint = 15;
 
     let mut rng = thread_rng();
@@ -42,9 +43,8 @@ pub fn pong() -> ril::Result<()> {
         y = 1;
     }
 
-    init();
     loop {
-        let mut image: Image<Rgba> = Image::new(60, 30, Rgba::new(0, 0, 0, 255));
+        let mut image: Image<Rgba> = Image::new(get_hardware("columns") as u32, get_hardware("rows") as u32, Rgba::new(0, 0, 0, 255));
 
         if x_vector {
             if x + 1 <= x_min || x + 1 >= x_max {

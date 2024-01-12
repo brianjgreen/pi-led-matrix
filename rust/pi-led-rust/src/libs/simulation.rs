@@ -2,6 +2,7 @@ use ril::prelude::*;
 #[cfg(not(target_arch = "arm"))]
 use ril::ResizeAlgorithm::Nearest;
 use std::cell::RefCell;
+#[cfg(not(target_arch = "arm"))]
 use super::config::get_hardware;
 
 thread_local!(static SIM_GIF: RefCell<ImageSequence<Rgba>> = RefCell::new(<ril::ImageSequence<_>>::new()));
