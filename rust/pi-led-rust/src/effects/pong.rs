@@ -43,7 +43,7 @@ pub fn pong() -> ril::Result<()> {
     }
 
     init();
-    for _i in 0..100 {
+    loop {
         let mut image: Image<Rgba> = Image::new(60, 30, Rgba::new(0, 0, 0, 255));
 
         if x_vector {
