@@ -11,6 +11,10 @@ struct Hardware {
     brightness: i64
 }
 
+struct Effects {
+    playtime: i64
+}
+
 impl From<Table> for Hardware {
     fn from(value: Table) -> Self {
         Hardware {
@@ -21,19 +25,32 @@ impl From<Table> for Hardware {
         }
     }
 }
-pub fn get_hardware(key: &str) -> i64 {
+
+impl From<Table> for Effects {
+    fn from(value:Table) -> Self {
+        Effects {
+            playtime: value["effects"]["playtime"].as_integer().unwrap(),
+        }
+    }
+}
+
+pub fn get_config(key: &str) -> i64 {
     let mut file = File::open("config.toml").expect("File not found!");
     let mut contents = String::new();
     file.read_to_string(&mut contents).expect("Error reading file!");
     let value = contents.parse::<Table>().unwrap();
-    let hardware = Hardware::from(value);
+    let hardware = Hardware::from(value.clone());
+    let effects: Effects = Effects::from(value);
     let mut get_value: i64 = 0;
     match key {
         "columns" => get_value = hardware.columns,
         "rows" => get_value = hardware.rows,
         "pin" => get_value = hardware.pin,
         "brightness" => get_value = hardware.brightness,
+        "playtime" => get_value = effects.playtime,
         _ => println!("Unknown config key {}", key),
     }
     get_value
 }
+
+

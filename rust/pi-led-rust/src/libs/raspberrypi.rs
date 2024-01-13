@@ -5,17 +5,17 @@ use ril::prelude::*;
 #[cfg(target_arch = "arm")]
 use std::cell::RefCell;
 #[cfg(target_arch = "arm")]
-use super::config::get_hardware;
+use super::config::get_config;
 
 #[cfg(target_arch = "arm")]
 thread_local!(static CONTROLLER: RefCell<Controller> = RefCell::new(ControllerBuilder::new().dma(10)
 .channel(
     0, // Channel Index
     ChannelBuilder::new()
-        .pin(get_hardware("pin") as i32) // GPIO 18 = PWM0
-        .count(get_hardware("columns") as i32 * get_hardware("rows") as i32) // Number of LEDs
+        .pin(get_config("pin") as i32) // GPIO 18 = PWM0
+        .count(get_config("columns") as i32 * get_config("rows") as i32) // Number of LEDs
         .strip_type(StripType::Ws2812)
-        .brightness(get_hardware("brightness") as u8) // default: 255
+        .brightness(get_config("brightness") as u8) // default: 255
         .build(),
 )
 .build()
@@ -24,15 +24,22 @@ thread_local!(static CONTROLLER: RefCell<Controller> = RefCell::new(ControllerBu
 #[allow(unused_mut)]
 #[cfg(target_arch = "arm")]
 pub fn render(mut image: Image<Rgba>) {
+    let columns = get_config("columns");
+    let rows = get_config("rows");
+    let y_range_forward = [usize; rows];
+    for y in 0..rows {
+        y_range_forward[y] = y;
+    }
+    y_range_reverse = y_range_forward.rev();
     CONTROLLER.with(|controller| {
         let mut binding = controller.borrow_mut();
         let mut leds = binding.leds_mut(0);
         let mut rev_col: bool = false;
         let mut i = 0;
-        for x in 0..32 {
-            let mut y_range = [0, 1, 2, 3,4, 5, 6, 7];
+        for x in 0..columns {
+            let mut y_range = y_range_forward;
             if rev_col {
-                y_range = [7,6,5,4,3,2,1,0];
+                y_range = y_range_reverse;
             }
             for y in y_range {
                 leds[i] = image.pixel(x, y).as_bytes();
