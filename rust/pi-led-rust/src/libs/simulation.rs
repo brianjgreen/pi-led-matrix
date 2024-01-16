@@ -1,5 +1,5 @@
 #[cfg(not(target_arch = "arm"))]
-use super::config::get_config;
+use super::config::get_config_i64;
 #[cfg(not(target_arch = "arm"))]
 use minifb::{Window, WindowOptions};
 #[cfg(not(target_arch = "arm"))]
@@ -13,8 +13,8 @@ use std::cell::RefCell;
 #[cfg(not(target_arch = "arm"))]
 thread_local!(static WINDOW: RefCell<Window> = RefCell::new(Window::new(
     "LED Simulation - ESC to exit",
-    get_config("columns") as usize * 10,
-    get_config("rows") as usize * 10,
+    get_config_i64("columns") as usize * 10,
+    get_config_i64("rows") as usize * 10,
     WindowOptions::default(),
 )
 .unwrap_or_else(|e| {
@@ -23,8 +23,8 @@ thread_local!(static WINDOW: RefCell<Window> = RefCell::new(Window::new(
 
 #[cfg(not(target_arch = "arm"))]
 pub fn render(mut image: Image<Rgba>) {
-    let columns = get_config("columns") as usize * 10;
-    let rows: usize = get_config("rows") as usize * 10;
+    let columns = get_config_i64("columns") as usize * 10;
+    let rows: usize = get_config_i64("rows") as usize * 10;
     image.resize(columns as u32, rows as u32, Nearest);
     // SIM_GIF.with(|output| output.borrow_mut().push_frame(image.into()));
     let mut buffer: Vec<u32> = vec![0; 600 * 300];

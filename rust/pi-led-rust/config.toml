@@ -8,3 +8,5 @@ brightness = 20
 [effects]
 # playtime is number of frames rendered
 playtime = 100
+fontpath = "../../fonts/dosis.ttf"
+message = "The Beverly"

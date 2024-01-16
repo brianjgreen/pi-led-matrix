@@ -1,5 +1,5 @@
 #[cfg(target_arch = "arm")]
-use super::config::get_config;
+use super::config::get_config_i64;
 #[cfg(target_arch = "arm")]
 use ril::prelude::*;
 #[cfg(target_arch = "arm")]
@@ -12,10 +12,10 @@ thread_local!(static CONTROLLER: RefCell<Controller> = RefCell::new(ControllerBu
 .channel(
     0, // Channel Index
     ChannelBuilder::new()
-        .pin(get_config("pin") as i32) // GPIO 18 = PWM0
-        .count(get_config("columns") as i32 * get_config("rows") as i32) // Number of LEDs
+        .pin(get_config_i64("pin") as i32) // GPIO 18 = PWM0
+        .count(get_config_i64("columns") as i32 * get_config_i64("rows") as i32) // Number of LEDs
         .strip_type(StripType::Ws2812)
-        .brightness(get_config("brightness") as u8) // default: 255
+        .brightness(get_config_i64("brightness") as u8) // default: 255
         .build(),
 )
 .build()
@@ -24,8 +24,8 @@ thread_local!(static CONTROLLER: RefCell<Controller> = RefCell::new(ControllerBu
 #[allow(unused_mut)]
 #[cfg(target_arch = "arm")]
 pub fn render(mut image: Image<Rgba>) {
-    let columns = get_config("columns");
-    let rows: usize = get_config("rows") as usize;
+    let columns = get_config_i64("columns");
+    let rows: usize = get_config_i64("rows") as usize;
     let mut y_range_forward: Vec<usize> = Vec::new();
     for y in 0..rows {
         y_range_forward.push(y);

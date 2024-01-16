@@ -1,4 +1,4 @@
-use super::super::libs::config::get_config;
+use super::super::libs::config::get_config_i64;
 use super::super::render;
 use rand::prelude::*;
 use ril::draw::{Line, Rectangle};
@@ -25,8 +25,8 @@ pub fn pong() -> ril::Result<()> {
     let mut y_vector: bool = true;
     let x_min: u32 = 3;
     let y_min: u32 = 0;
-    let columns = get_config("columns") as u32;
-    let rows = get_config("rows") as u32;
+    let columns = get_config_i64("columns") as u32;
+    let rows = get_config_i64("rows") as u32;
     let x_max: u32 = columns - 4;
     let y_max: u32 = rows - 1;
     let x_midpoint: u32 = columns / 2;
@@ -40,7 +40,7 @@ pub fn pong() -> ril::Result<()> {
     let mut left_paddle_y = y_midpoint;
     let mut right_paddle_y = y_midpoint;
 
-    let mut play_clock = get_config("playtime");
+    let mut play_clock = get_config_i64("playtime");
     while play_clock > 0 {
         play_clock -= 1;
         let mut image: Image<Rgba> = Image::new(columns, rows, Rgba::new(0, 0, 0, 255));
