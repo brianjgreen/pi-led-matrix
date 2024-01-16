@@ -55,8 +55,3 @@ pub fn render(mut image: Image<Rgba>) {
     });
     CONTROLLER.with(|controller| controller.borrow_mut().render().unwrap());
 }
-
-#[cfg(target_arch = "arm")]
-pub fn finish() -> ril::Result<()> {
-    Ok(())
-}

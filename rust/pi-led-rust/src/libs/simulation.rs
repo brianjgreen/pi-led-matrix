@@ -38,13 +38,12 @@ pub fn render(mut image: Image<Rgba>) {
     WINDOW.with(|output| {
         output
             .borrow_mut()
+            .limit_update_rate(Some(std::time::Duration::from_micros(16600)))
+    });
+    WINDOW.with(|output| {
+        output
+            .borrow_mut()
             .update_with_buffer(&buffer, columns, rows)
             .unwrap()
     });
-}
-
-#[cfg(not(target_arch = "arm"))]
-pub fn finish() -> ril::Result<()> {
-    //return SIM_GIF.with(|output| output.borrow_mut().save_inferred("output.gif"));
-    Ok(())
 }

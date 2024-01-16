@@ -1,5 +1,5 @@
 use super::super::libs::config::get_config;
-use super::super::{finish, render};
+use super::super::render;
 use rand::prelude::*;
 use ril::draw::{Line, Rectangle};
 use ril::prelude::*;
@@ -117,6 +117,5 @@ pub fn pong() -> ril::Result<()> {
 
         render(image);
     }
-    let _ = finish();
     Ok(())
 }
