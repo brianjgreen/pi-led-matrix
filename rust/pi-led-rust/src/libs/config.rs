@@ -1,18 +1,18 @@
+use serde::Deserialize;
 use std::fs::File;
 use std::io::Read;
 use toml::Table;
-use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
 struct Hardware {
     columns: i64,
     rows: i64,
     pin: i64,
-    brightness: i64
+    brightness: i64,
 }
 
 struct Effects {
-    playtime: i64
+    playtime: i64,
 }
 
 impl From<Table> for Hardware {
@@ -27,7 +27,7 @@ impl From<Table> for Hardware {
 }
 
 impl From<Table> for Effects {
-    fn from(value:Table) -> Self {
+    fn from(value: Table) -> Self {
         Effects {
             playtime: value["effects"]["playtime"].as_integer().unwrap(),
         }
@@ -37,7 +37,8 @@ impl From<Table> for Effects {
 pub fn get_config(key: &str) -> i64 {
     let mut file = File::open("config.toml").expect("File not found!");
     let mut contents = String::new();
-    file.read_to_string(&mut contents).expect("Error reading file!");
+    file.read_to_string(&mut contents)
+        .expect("Error reading file!");
     let value = contents.parse::<Table>().unwrap();
     let hardware = Hardware::from(value.clone());
     let effects: Effects = Effects::from(value);
@@ -52,5 +53,3 @@ pub fn get_config(key: &str) -> i64 {
     }
     get_value
 }
-
-

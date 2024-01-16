@@ -1,11 +1,11 @@
 #[cfg(target_arch = "arm")]
-use rs_ws281x::{ChannelBuilder, Controller, ControllerBuilder, StripType};
+use super::config::get_config;
 #[cfg(target_arch = "arm")]
 use ril::prelude::*;
 #[cfg(target_arch = "arm")]
-use std::cell::RefCell;
+use rs_ws281x::{ChannelBuilder, Controller, ControllerBuilder, StripType};
 #[cfg(target_arch = "arm")]
-use super::config::get_config;
+use std::cell::RefCell;
 
 #[cfg(target_arch = "arm")]
 thread_local!(static CONTROLLER: RefCell<Controller> = RefCell::new(ControllerBuilder::new().dma(10)

@@ -1,8 +1,8 @@
+use super::super::libs::config::get_config;
 use super::super::{finish, render};
 use rand::prelude::*;
 use ril::draw::{Line, Rectangle};
 use ril::prelude::*;
-use super::super::libs::config::get_config;
 
 fn move_paddle(paddle_y: u32, ball_y: u32, y_max: u32) -> u32 {
     let mut new_paddle_y: u32 = paddle_y;
@@ -34,7 +34,7 @@ pub fn pong() -> ril::Result<()> {
 
     let mut rng = thread_rng();
     let mut x: u32 = rng.gen_range(x_min..x_max);
-    let mut y: u32 = rng.gen_range(y_min+1..y_max);
+    let mut y: u32 = rng.gen_range(y_min + 1..y_max);
 
     // Paddles
     let mut left_paddle_y = y_midpoint;
