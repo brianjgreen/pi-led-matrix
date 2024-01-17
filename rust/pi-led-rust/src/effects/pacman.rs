@@ -72,7 +72,10 @@ pub fn pacman() -> ril::Result<()> {
     pac_img_l4.mirror();
     
     let mut x:i32 = 0;
-    let y = rows / 2 - PACMAN_ROWS / 2;
+    let mut y: u32 = 2;
+    if rows > PACMAN_ROWS {
+        y = rows / 2 - PACMAN_ROWS / 2;
+    }
     let mut pacman_right = true;
     let mut play_clock = get_config_i64("playtime") / 2;
     let mut i = 1;

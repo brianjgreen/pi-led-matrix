@@ -1,8 +1,8 @@
 [hardware]
 columns = 60
 rows = 30
-# pin 12 is GPIO 18 PWM0
-pin = 12
+# pin is GPIO number, not physical pin number
+pin = 18
 brightness = 20
 
 [effects]

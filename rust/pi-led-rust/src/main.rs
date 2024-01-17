@@ -2,7 +2,7 @@ use ril::prelude::*;
 mod effects;
 use crate::effects::displaytext::displaytext;
 use crate::effects::pong::pong;
-//use crate::effects::color_test::color_test;
+use crate::effects::color_test::color_test;
 use crate::effects::pacman::pacman;
 mod libs;
 #[cfg(target_arch = "arm")]
@@ -18,6 +18,6 @@ fn main() -> ril::Result<()> {
     let _ = pong();
     let _ = displaytext();
     let _ = pacman();
-    //let _ = color_test();
+    let _ = color_test();
     Ok(())
 }
