@@ -2,7 +2,8 @@ use ril::prelude::*;
 mod effects;
 use crate::effects::displaytext::displaytext;
 use crate::effects::pong::pong;
-use crate::effects::color_test::color_test;
+//use crate::effects::color_test::color_test;
+use crate::effects::pacman::pacman;
 mod libs;
 #[cfg(target_arch = "arm")]
 use crate::libs::raspberrypi::render;
@@ -16,6 +17,7 @@ pub fn led_render(image: Image<Rgba>) {
 fn main() -> ril::Result<()> {
     let _ = pong();
     let _ = displaytext();
-    let _ = color_test();
+    let _ = pacman();
+    //let _ = color_test();
     Ok(())
 }
