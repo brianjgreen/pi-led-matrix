@@ -1,4 +1,5 @@
 use super::super::libs::config::get_config_i64;
+use super::super::libs::colors::color;
 use super::super::render;
 use rand::prelude::*;
 use ril::draw::{Line, Rectangle};
@@ -43,7 +44,7 @@ pub fn pong() -> ril::Result<()> {
     let mut play_clock = get_config_i64("playtime");
     while play_clock > 0 {
         play_clock -= 1;
-        let mut image: Image<Rgba> = Image::new(columns, rows, Rgba::new(0, 0, 0, 255));
+        let mut image: Image<Rgba> = Image::new(columns, rows, color("black"));
 
         if x_vector {
             if x + 1 <= x_min || x + 1 >= x_max {
@@ -86,33 +87,33 @@ pub fn pong() -> ril::Result<()> {
         }
 
         // Draw top and bottom walls
-        let line = Line::new((x_min + 1, 0), (x_max, 0), Rgba::white());
+        let line = Line::new((x_min + 1, 0), (x_max, 0), color("white"));
         image.draw(&line);
-        let line = Line::new((x_min + 1, y_max), (x_max + 1, y_max), Rgba::white());
+        let line = Line::new((x_min + 1, y_max), (x_max + 1, y_max), color("white"));
         image.draw(&line);
 
         // Draw dashed line in middle of field
         for i in 1..7 {
             let rectangle: Rectangle<Rgba> = Rectangle::at(x_midpoint, i * 4)
                 .with_size(1, 2)
-                .with_fill(Rgba::white());
+                .with_fill(color("white"));
             image.draw(&rectangle);
         }
 
         // Draw ball
         let rectangle: Rectangle<Rgba> =
-            Rectangle::at(x, y).with_size(1, 1).with_fill(Rgba::white());
+            Rectangle::at(x, y).with_size(1, 1).with_fill(color("white"));
         image.draw(&rectangle);
 
         // Draw paddles
         let rectangle: Rectangle<Rgba> = Rectangle::at(2, left_paddle_y)
             .with_size(2, 5)
-            .with_fill(Rgba::white());
+            .with_fill(color("white"));
         image.draw(&rectangle);
 
         let rectangle: Rectangle<Rgba> = Rectangle::at(x_max, right_paddle_y)
             .with_size(2, 5)
-            .with_fill(Rgba::white());
+            .with_fill(color("white"));
         image.draw(&rectangle);
 
         render(image);

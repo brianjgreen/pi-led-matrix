@@ -1,4 +1,5 @@
 use super::super::libs::config::{get_config_i64, get_config_string};
+use super::super::libs::colors::color;
 use super::super::render;
 use ril::prelude::*;
 use ril::text::{TextLayout, TextSegment};
@@ -13,14 +14,14 @@ pub fn displaytext() -> ril::Result<()> {
     let segment = TextSegment::new(
         &font,
         get_config_string("message"),
-        Rgba::new(255, 0, 0, 255),
+        color("blue"),
     );
     layout.push_segment(&segment);
 
     let mut play_clock = get_config_i64("playtime");
     while play_clock > 0 {
         play_clock -= 1;
-        let mut image: Image<Rgba> = Image::new(columns, rows, Rgba::new(0, 0, 0, 255));
+        let mut image: Image<Rgba> = Image::new(columns, rows, color("black"));
         image.draw(&layout);
         render(image);
     }
