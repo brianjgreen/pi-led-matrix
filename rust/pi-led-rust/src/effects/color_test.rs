@@ -9,8 +9,8 @@ pub fn color_test() -> ril::Result<()> {
     let rows = get_config_i64("rows") as u32;
     let font = Font::open(get_config_string("fontpath"), 14.0).unwrap();
     let all_colors = vec![
-        "white", "blue", "red", "green", "yellow", "orange", "purple", "brown", "gold",
-        "gray", "pink", "silver", "black"
+        "white", "blue", "red", "green", "yellow", "orange", "purple", "brown", "gold", "gray",
+        "pink", "silver", "black",
     ];
     for c in all_colors {
         let mut play_clock = get_config_i64("playtime") / 2;
@@ -18,11 +18,7 @@ pub fn color_test() -> ril::Result<()> {
         let mut layout = TextLayout::<Rgba>::new()
             .with_wrap(WrapStyle::Word)
             .with_width(columns);
-        let segment = TextSegment::new(
-            &font,
-            c,
-            color("black"),
-        );
+        let segment = TextSegment::new(&font, c, color("black"));
         layout.push_segment(&segment);
         while play_clock > 0 {
             play_clock -= 1;

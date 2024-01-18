@@ -1,5 +1,5 @@
-use super::super::libs::config::get_config_i64;
 use super::super::libs::colors::color;
+use super::super::libs::config::get_config_i64;
 use super::super::render;
 use rand::prelude::*;
 use ril::draw::{Line, Rectangle};
@@ -101,8 +101,9 @@ pub fn pong() -> ril::Result<()> {
         }
 
         // Draw ball
-        let rectangle: Rectangle<Rgba> =
-            Rectangle::at(x, y).with_size(1, 1).with_fill(color("white"));
+        let rectangle: Rectangle<Rgba> = Rectangle::at(x, y)
+            .with_size(1, 1)
+            .with_fill(color("white"));
         image.draw(&rectangle);
 
         // Draw paddles

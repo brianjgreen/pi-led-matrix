@@ -1,5 +1,5 @@
-use super::super::libs::config::{get_config_i64, get_config_string};
 use super::super::libs::colors::color;
+use super::super::libs::config::{get_config_i64, get_config_string};
 use super::super::render;
 use ril::prelude::*;
 use ril::text::{TextLayout, TextSegment};
@@ -11,11 +11,7 @@ pub fn displaytext() -> ril::Result<()> {
         .with_wrap(WrapStyle::Word)
         .with_width(columns);
     let font = Font::open(get_config_string("fontpath"), 12.0).unwrap();
-    let segment = TextSegment::new(
-        &font,
-        get_config_string("message"),
-        color("blue"),
-    );
+    let segment = TextSegment::new(&font, get_config_string("message"), color("blue"));
     layout.push_segment(&segment);
 
     let mut play_clock = get_config_i64("playtime");

@@ -1,63 +1,63 @@
-use super::super::libs::config::get_config_i64;
 use super::super::libs::colors::color;
+use super::super::libs::config::get_config_i64;
 use super::super::render;
 use ril::prelude::*;
 
 pub fn pacman() -> ril::Result<()> {
-
     let pacman_right = [
-        ' ', ' ', ' ', ' ', 'a', 'a', 'a', 'a', 'a', ' ', ' ', ' ', ' ',
-        ' ', ' ', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'b', 'b', ' ', ' ',
-        ' ', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'b', 'b', 'b', 'b', ' ',
-        ' ', 'a', 'a', 'a', 'a', 'a', 'a', 'b', 'b', 'b', 'b', 'b', ' ',
-        'a', 'a', 'a', 'a', 'a', 'a', 'b', 'b', 'b', 'b', 'c', 'c', 'c',
-        'a', 'a', 'a', 'a', 'a', 'b', 'b', 'c', 'c', 'c', 'c', 'c', 'c',
-        'a', 'a', 'a', 'a', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c',
-        'a', 'a', 'a', 'a', 'a', 'b', 'b', 'c', 'c', 'c', 'c', 'c', 'c',
-        'a', 'a', 'a', 'a', 'a', 'a', 'b', 'b', 'b', 'b', 'c', 'c', 'c',
-        ' ', 'a', 'a', 'a', 'a', 'a', 'a', 'b', 'b', 'b', 'b', 'b', ' ',
-        ' ', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'b', 'b', 'b', 'b', ' ',
-        ' ', ' ', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'b', 'b', ' ', ' ',
-        ' ', ' ', ' ', ' ', 'a', 'a', 'a', 'a', 'a', ' ', ' ', ' ', ' ',
+        ' ', ' ', ' ', ' ', 'a', 'a', 'a', 'a', 'a', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'a', 'a',
+        'a', 'a', 'a', 'a', 'b', 'b', ' ', ' ', ' ', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'b', 'b',
+        'b', 'b', ' ', ' ', 'a', 'a', 'a', 'a', 'a', 'a', 'b', 'b', 'b', 'b', 'b', ' ', 'a', 'a',
+        'a', 'a', 'a', 'a', 'b', 'b', 'b', 'b', 'c', 'c', 'c', 'a', 'a', 'a', 'a', 'a', 'b', 'b',
+        'c', 'c', 'c', 'c', 'c', 'c', 'a', 'a', 'a', 'a', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c',
+        'c', 'a', 'a', 'a', 'a', 'a', 'b', 'b', 'c', 'c', 'c', 'c', 'c', 'c', 'a', 'a', 'a', 'a',
+        'a', 'a', 'b', 'b', 'b', 'b', 'c', 'c', 'c', ' ', 'a', 'a', 'a', 'a', 'a', 'a', 'b', 'b',
+        'b', 'b', 'b', ' ', ' ', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'b', 'b', 'b', 'b', ' ', ' ',
+        ' ', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'b', 'b', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'a',
+        'a', 'a', 'a', ' ', ' ', ' ', ' ',
     ];
 
-    const PACMAN_COLUMNS:u32 = 13;
-    const PACMAN_ROWS:u32 = 13;
+    const PACMAN_COLUMNS: u32 = 13;
+    const PACMAN_ROWS: u32 = 13;
     let columns = get_config_i64("columns") as u32;
     let rows = get_config_i64("rows") as u32;
 
-    let pacman_right_frame_1: Vec<Rgba> = pacman_right.iter().map(|val| {
-        match val {
+    let pacman_right_frame_1: Vec<Rgba> = pacman_right
+        .iter()
+        .map(|val| match val {
             'a' => color("yellow"),
             'b' => color("yellow"),
             'c' => color("yellow"),
             _ => color("black"),
-        }
-    }).collect();
-    let pacman_right_frame_2: Vec<Rgba> = pacman_right.iter().map(|val| {
-        match val {
+        })
+        .collect();
+    let pacman_right_frame_2: Vec<Rgba> = pacman_right
+        .iter()
+        .map(|val| match val {
             'a' => color("yellow"),
             'b' => color("yellow"),
             'c' => color("black"),
             _ => color("black"),
-        }
-    }).collect();
-    let pacman_right_frame_3: Vec<Rgba> = pacman_right.iter().map(|val| {
-        match val {
+        })
+        .collect();
+    let pacman_right_frame_3: Vec<Rgba> = pacman_right
+        .iter()
+        .map(|val| match val {
             'a' => color("yellow"),
             'b' => color("black"),
             'c' => color("black"),
             _ => color("black"),
-        }
-    }).collect();
-    let pacman_right_frame_4: Vec<Rgba> = pacman_right.iter().map(|val| {
-        match val {
+        })
+        .collect();
+    let pacman_right_frame_4: Vec<Rgba> = pacman_right
+        .iter()
+        .map(|val| match val {
             'a' => color("yellow"),
             'b' => color("yellow"),
             'c' => color("black"),
             _ => color("black"),
-        }
-    }).collect();
+        })
+        .collect();
     let pac_img_r1: Image<Rgba> = Image::from_pixels(PACMAN_COLUMNS, &pacman_right_frame_1);
     let pac_img_r2: Image<Rgba> = Image::from_pixels(PACMAN_COLUMNS, &pacman_right_frame_2);
     let pac_img_r3: Image<Rgba> = Image::from_pixels(PACMAN_COLUMNS, &pacman_right_frame_3);
@@ -70,8 +70,8 @@ pub fn pacman() -> ril::Result<()> {
     pac_img_l2.mirror();
     pac_img_l3.mirror();
     pac_img_l4.mirror();
-    
-    let mut x:i32 = 0;
+
+    let mut x: i32 = 0;
     let mut y: u32 = 2;
     if rows > PACMAN_ROWS {
         y = rows / 2 - PACMAN_ROWS / 2;
