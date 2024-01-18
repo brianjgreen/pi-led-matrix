@@ -49,27 +49,17 @@ pub fn pacman() -> ril::Result<()> {
             _ => color("black"),
         })
         .collect();
-    let pacman_right_frame_4: Vec<Rgba> = pacman_right
-        .iter()
-        .map(|val| match val {
-            'a' => color("yellow"),
-            'b' => color("yellow"),
-            'c' => color("black"),
-            _ => color("black"),
-        })
-        .collect();
-    let pac_img_r1: Image<Rgba> = Image::from_pixels(PACMAN_COLUMNS, &pacman_right_frame_1);
-    let pac_img_r2: Image<Rgba> = Image::from_pixels(PACMAN_COLUMNS, &pacman_right_frame_2);
-    let pac_img_r3: Image<Rgba> = Image::from_pixels(PACMAN_COLUMNS, &pacman_right_frame_3);
-    let pac_img_r4: Image<Rgba> = Image::from_pixels(PACMAN_COLUMNS, &pacman_right_frame_4);
-    let mut pac_img_l1: Image<Rgba> = Image::from_pixels(PACMAN_COLUMNS, &pacman_right_frame_1);
-    let mut pac_img_l2: Image<Rgba> = Image::from_pixels(PACMAN_COLUMNS, &pacman_right_frame_2);
-    let mut pac_img_l3: Image<Rgba> = Image::from_pixels(PACMAN_COLUMNS, &pacman_right_frame_3);
-    let mut pac_img_l4: Image<Rgba> = Image::from_pixels(PACMAN_COLUMNS, &pacman_right_frame_4);
-    pac_img_l1.mirror();
-    pac_img_l2.mirror();
-    pac_img_l3.mirror();
-    pac_img_l4.mirror();
+    //let pacman_right_frame_4: Vec<Rgba> = pacman_right_frame_2.clone();
+
+    let pac_img_right_1: Image<Rgba> = Image::from_pixels(PACMAN_COLUMNS, &pacman_right_frame_1);
+    let pac_img_right_2: Image<Rgba> = Image::from_pixels(PACMAN_COLUMNS, &pacman_right_frame_2);
+    let pac_img_right_3: Image<Rgba> = Image::from_pixels(PACMAN_COLUMNS, &pacman_right_frame_3);
+    let mut pac_img_left_1: Image<Rgba> = Image::from_pixels(PACMAN_COLUMNS, &pacman_right_frame_1);
+    let mut pac_img_left_2: Image<Rgba> = Image::from_pixels(PACMAN_COLUMNS, &pacman_right_frame_2);
+    let mut pac_img_left_3: Image<Rgba> = Image::from_pixels(PACMAN_COLUMNS, &pacman_right_frame_3);
+    pac_img_left_1.mirror();
+    pac_img_left_2.mirror();
+    pac_img_left_3.mirror();
 
     let mut x: i32 = 0;
     let mut y: u32 = 2;
@@ -77,27 +67,27 @@ pub fn pacman() -> ril::Result<()> {
         y = rows / 2 - PACMAN_ROWS / 2;
     }
     let mut pacman_right = true;
-    let mut play_clock = get_config().effects.playtime / 2;
-    let mut i = 1;
+    let mut play_clock = get_config().effects.playtime;
+    let mut frame = [1, 2, 3, 4].iter().cycle();
     while play_clock > 0 {
         play_clock -= 1;
         let mut image: Image<Rgba> = Image::new(columns, rows, color("black"));
         if pacman_right {
-            match i {
-                1 => image.paste(x as u32, y, &pac_img_r1),
-                2 => image.paste(x as u32, y, &pac_img_r2),
-                3 => image.paste(x as u32, y, &pac_img_r3),
-                4 => image.paste(x as u32, y, &pac_img_r4),
-                _ => i = 1,
+            match frame.next().unwrap() {
+                1 => image.paste(x as u32, y, &pac_img_right_1),
+                2 => image.paste(x as u32, y, &pac_img_right_2),
+                3 => image.paste(x as u32, y, &pac_img_right_3),
+                4 => image.paste(x as u32, y, &pac_img_right_2),
+                _ => println!("Unknown animation frame"),
             }
             x += 1;
         } else {
-            match i {
-                1 => image.paste(x as u32, y, &pac_img_l1),
-                2 => image.paste(x as u32, y, &pac_img_l2),
-                3 => image.paste(x as u32, y, &pac_img_l3),
-                4 => image.paste(x as u32, y, &pac_img_l4),
-                _ => i = 1,
+            match frame.next().unwrap() {
+                1 => image.paste(x as u32, y, &pac_img_left_1),
+                2 => image.paste(x as u32, y, &pac_img_left_2),
+                3 => image.paste(x as u32, y, &pac_img_left_3),
+                4 => image.paste(x as u32, y, &pac_img_left_2),
+                _ => println!("Unknown animation frame"),
             }
             x -= 1;
         }
@@ -106,10 +96,6 @@ pub fn pacman() -> ril::Result<()> {
         }
         if x > columns as i32 - PACMAN_COLUMNS as i32 {
             pacman_right = false;
-        }
-        i += 1;
-        if i > 4 {
-            i = 1;
         }
         render(image);
     }

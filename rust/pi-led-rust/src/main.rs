@@ -18,11 +18,11 @@ pub fn led_render(image: Image<Rgba>) {
 fn main() -> ril::Result<()> {
     let mut res = Ok(());
     for e in get_config().effects.playlist {
-        match e.as_str() {
-            Some("color_test") => res = color_test(),
-            Some("displaytext") => res = displaytext(),
-            Some("pacman") => res = pacman(),
-            Some("pong") => res = pong(),
+        match e.as_str().unwrap() {
+            "color_test" => res = color_test(),
+            "displaytext" => res = displaytext(),
+            "pacman" => res = pacman(),
+            "pong" => res = pong(),
             _ => println!("Unknown effect {}", e),
         };
     }

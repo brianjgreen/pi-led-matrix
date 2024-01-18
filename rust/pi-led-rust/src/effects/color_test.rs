@@ -13,7 +13,7 @@ pub fn color_test() -> ril::Result<()> {
         "pink", "silver", "black",
     ];
     for c in all_colors {
-        let mut play_clock = get_config().effects.playtime / 2;
+        let mut play_clock = get_config().effects.playtime;
         println!("{}", c);
         let mut layout = TextLayout::<Rgba>::new()
             .with_wrap(WrapStyle::Word)
