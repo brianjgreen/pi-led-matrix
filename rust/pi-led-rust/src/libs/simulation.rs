@@ -36,7 +36,7 @@ pub fn render(mut image: Image<Rgba>) {
     WINDOW.with(|output| {
         output
             .borrow_mut()
-            .limit_update_rate(Some(std::time::Duration::from_micros(16600)))
+            .limit_update_rate(Some(std::time::Duration::from_micros(get_config().hardware.simupdatelimit as u64)))
     });
     WINDOW.with(|output| {
         output

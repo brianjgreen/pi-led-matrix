@@ -3,9 +3,12 @@ columns = 60
 rows = 30
 # pin is GPIO number, not physical pin number
 pin = 18
+# led brightness in percent
 brightness = 20
 # simscale embiggens led buffer for the simulator window (buffer_size * simscale)
 simscale = 10
+# limit the simulation refresh rate (in microseconds)
+simupdatelimit = 66400
 
 [effects]
 # playtime is number of frames rendered

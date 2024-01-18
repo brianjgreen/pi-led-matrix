@@ -19,6 +19,7 @@ pub struct Hardware {
     pub pin: i64,
     pub brightness: i64,
     pub simscale: i64,
+    pub simupdatelimit: i64,
 }
 
 #[derive(Debug, Default, Deserialize)]

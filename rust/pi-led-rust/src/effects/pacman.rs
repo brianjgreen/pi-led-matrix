@@ -101,7 +101,7 @@ pub fn pacman() -> ril::Result<()> {
             }
             x -= 1;
         }
-        if x < 0 {
+        if x <= 0 {
             pacman_right = true;
         }
         if x > columns as i32 - PACMAN_COLUMNS as i32 {
