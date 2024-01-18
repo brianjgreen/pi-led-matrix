@@ -43,11 +43,11 @@ https://github.com/natelewis/pi-led-matrix
 dtoverlay=pwm
 dtparam=audio=off # Edit from dtparam=audio=on default
 ```
-1. Compile the pi-led-rust project (pi-led-matrix/rust/pi-led-rust):<BR>
+8. Compile the pi-led-rust project (pi-led-matrix/rust/pi-led-rust):<BR>
 ```cargo build```
-1. Run the pi-led-rust project on the LEDs:<BR>
+9. Run the pi-led-rust project on the LEDs:<BR>
 ```cargo run```
-1. Share and Enjoy!
+10. Share and Enjoy!
 
 
 ## Configuration file (config.toml)
@@ -72,10 +72,9 @@ message = "Rust RPi LEDs"
 
 ## Common API Calls
 
-### get_config_*
+### get_config()
 ```
-get_config_i64()
-get_config_string()
+get_config().hardware.columns
 ```
 Use the configuration variables from the config.toml file.
 
@@ -112,7 +111,10 @@ let segment = TextSegment::new(
     "Your string here",
     color("black"),
 );
+image.draw(&layout);
 ```
+`TextLayout::<Rgba>::new()` sets up the layout of the text.<BR>
+`TextSegment::new()` places the text into the layout.
 
 ### Circle
 *TODO using ellipse() call.*
@@ -139,4 +141,4 @@ Draw a rectangle with top left (x, y) of size(x, y) with color.
 - https://www.rust-lang.org/tools/install
 - https://github.com/rpi-ws281x/rpi-ws281x-rust
 - https://github.com/jgarff/rpi_ws281x
-- https://docs.rs/ril/latest/ril/
+- https://docs.rs/ril/latest/ril/draw/index.html

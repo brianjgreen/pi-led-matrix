@@ -4,9 +4,12 @@ rows = 30
 # pin is GPIO number, not physical pin number
 pin = 18
 brightness = 20
+# simscale embiggens led buffer for the simulator window (buffer_size * simscale)
+simscale = 10
 
 [effects]
 # playtime is number of frames rendered
 playtime = 100
 fontpath = "../../fonts/dosis.ttf"
 message = "The Beverly"
+playlist = ["pong", "displaytext", "pacman", "color_test"]

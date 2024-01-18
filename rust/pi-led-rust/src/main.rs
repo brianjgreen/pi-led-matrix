@@ -1,3 +1,4 @@
+use libs::config::get_config;
 use ril::prelude::*;
 mod effects;
 use crate::effects::color_test::color_test;
@@ -15,9 +16,15 @@ pub fn led_render(image: Image<Rgba>) {
 }
 
 fn main() -> ril::Result<()> {
-    let _ = pong();
-    let _ = displaytext();
-    let _ = pacman();
-    let _ = color_test();
-    Ok(())
+    let mut res = Ok(());
+    for e in get_config().effects.playlist {
+        match e.as_str() {
+            Some("color_test") => res = color_test(),
+            Some("displaytext") => res = displaytext(),
+            Some("pacman") => res = pacman(),
+            Some("pong") => res = pong(),
+            _ => println!("Unknown effect {}", e),
+        };
+    }
+    res
 }

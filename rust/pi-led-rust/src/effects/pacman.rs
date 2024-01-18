@@ -1,5 +1,5 @@
 use super::super::libs::colors::color;
-use super::super::libs::config::get_config_i64;
+use super::super::libs::config::get_config;
 use super::super::render;
 use ril::prelude::*;
 
@@ -19,8 +19,8 @@ pub fn pacman() -> ril::Result<()> {
 
     const PACMAN_COLUMNS: u32 = 13;
     const PACMAN_ROWS: u32 = 13;
-    let columns = get_config_i64("columns") as u32;
-    let rows = get_config_i64("rows") as u32;
+    let columns = get_config().hardware.columns as u32;
+    let rows = get_config().hardware.rows as u32;
 
     let pacman_right_frame_1: Vec<Rgba> = pacman_right
         .iter()
@@ -77,7 +77,7 @@ pub fn pacman() -> ril::Result<()> {
         y = rows / 2 - PACMAN_ROWS / 2;
     }
     let mut pacman_right = true;
-    let mut play_clock = get_config_i64("playtime") / 2;
+    let mut play_clock = get_config().effects.playtime / 2;
     let mut i = 1;
     while play_clock > 0 {
         play_clock -= 1;

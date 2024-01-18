@@ -1,5 +1,5 @@
 #[cfg(not(target_arch = "arm"))]
-use super::config::get_config_i64;
+use super::config::get_config;
 #[cfg(not(target_arch = "arm"))]
 use minifb::{Window, WindowOptions};
 #[cfg(not(target_arch = "arm"))]
@@ -9,12 +9,11 @@ use ril::ResizeAlgorithm::Nearest;
 #[cfg(not(target_arch = "arm"))]
 use std::cell::RefCell;
 
-// thread_local!(static SIM_GIF: RefCell<ImageSequence<Rgba>> = RefCell::new(<ril::ImageSequence<_>>::new()));
 #[cfg(not(target_arch = "arm"))]
 thread_local!(static WINDOW: RefCell<Window> = RefCell::new(Window::new(
-    "LED Simulation - ESC to exit",
-    get_config_i64("columns") as usize * 10,
-    get_config_i64("rows") as usize * 10,
+    "LED Simulation",
+    get_config().hardware.columns as usize * get_config().hardware.simscale as usize,
+    get_config().hardware.rows as usize * get_config().hardware.simscale as usize,
     WindowOptions::default(),
 )
 .unwrap_or_else(|e| {
@@ -23,10 +22,9 @@ thread_local!(static WINDOW: RefCell<Window> = RefCell::new(Window::new(
 
 #[cfg(not(target_arch = "arm"))]
 pub fn render(mut image: Image<Rgba>) {
-    let columns = get_config_i64("columns") as usize * 10;
-    let rows: usize = get_config_i64("rows") as usize * 10;
+    let columns = get_config().hardware.columns as usize * get_config().hardware.simscale as usize;
+    let rows: usize = get_config().hardware.rows as usize * get_config().hardware.simscale as usize;
     image.resize(columns as u32, rows as u32, Nearest);
-    // SIM_GIF.with(|output| output.borrow_mut().push_frame(image.into()));
     let mut buffer: Vec<u32> = vec![0; 600 * 300];
     let mut i = 0;
     for y in 0..rows {
