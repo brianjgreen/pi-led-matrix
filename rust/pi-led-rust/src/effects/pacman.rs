@@ -21,37 +21,31 @@ pub fn pacman() -> ril::Result<()> {
     const PACMAN_ROWS: u32 = 13;
 
     let ghost_agro = [
-        ' ', ' ', ' ', ' ', ' ', 'a', 'a', 'a', 'a', ' ', ' ', ' ', ' ', ' ',
-        ' ', ' ', ' ', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', ' ', ' ', ' ',
-        ' ', ' ', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', ' ', ' ',
-        ' ', 'a', 'a', 'a', 'b', 'b', 'a', 'a', 'a', 'a', 'b', 'b', 'a', ' ',
-        ' ', 'a', 'a', 'b', 'b', 'b', 'b', 'a', 'a', 'b', 'b', 'b', 'b', ' ',
-        ' ', 'a', 'a', 'b', 'b', 'c', 'c', 'a', 'a', 'b', 'b', 'c', 'c', ' ',
-        'a', 'a', 'a', 'b', 'b', 'c', 'c', 'a', 'a', 'b', 'b', 'c', 'c', 'a',
-        'a', 'a', 'a', 'a', 'b', 'b', 'a', 'a', 'a', 'a', 'b', 'b', 'a', 'a',
-        'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a',
-        'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a',
-        'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a',
-        'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a',
-        'a', 'a', 'e', 'a', 'f', 'a', 'e', 'e', 'a', 'f', 'a', 'e', 'a', 'a',
-        'f', 'e', 'e', 'd', 'f', 'f', 'e', 'e', 'f', 'f', 'd', 'e', 'e', 'f'
+        ' ', ' ', ' ', ' ', ' ', 'a', 'a', 'a', 'a', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a',
+        'a', 'a', 'a', 'a', 'a', 'a', 'a', ' ', ' ', ' ', ' ', ' ', 'a', 'a', 'a', 'a', 'a', 'a',
+        'a', 'a', 'a', 'a', ' ', ' ', ' ', 'a', 'a', 'a', 'b', 'b', 'a', 'a', 'a', 'a', 'b', 'b',
+        'a', ' ', ' ', 'a', 'a', 'b', 'b', 'b', 'b', 'a', 'a', 'b', 'b', 'b', 'b', ' ', ' ', 'a',
+        'a', 'b', 'b', 'c', 'c', 'a', 'a', 'b', 'b', 'c', 'c', ' ', 'a', 'a', 'a', 'b', 'b', 'c',
+        'c', 'a', 'a', 'b', 'b', 'c', 'c', 'a', 'a', 'a', 'a', 'a', 'b', 'b', 'a', 'a', 'a', 'a',
+        'b', 'b', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a',
+        'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a',
+        'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a',
+        'a', 'a', 'a', 'a', 'a', 'a', 'a', 'a', 'e', 'a', 'f', 'a', 'e', 'e', 'a', 'f', 'a', 'e',
+        'a', 'a', 'f', 'e', 'e', 'd', 'f', 'f', 'e', 'e', 'f', 'f', 'd', 'e', 'e', 'f',
     ];
 
     let ghost_scared = [
-        ' ', ' ', ' ', ' ', ' ', 'c', 'c', 'c', 'c', ' ', ' ', ' ', ' ', ' ',
-        ' ', ' ', ' ', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', ' ', ' ', ' ',
-        ' ', ' ', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', ' ', ' ',
-        ' ', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', ' ',
-        ' ', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', ' ',
-        ' ', 'c', 'c', 'b', 'b', 'c', 'c', 'c', 'c', 'b', 'b', 'c', 'c', ' ',
-        'c', 'c', 'c', 'b', 'b', 'c', 'c', 'c', 'c', 'b', 'b', 'c', 'c', 'c',
-        'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c',
-        'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c',
-        'c', 'c', 'b', 'b', 'c', 'c', 'b', 'b', 'c', 'c', 'b', 'b', 'c', 'c',
-        'c', 'b', 'c', 'c', 'b', 'b', 'c', 'c', 'b', 'b', 'c', 'c', 'b', 'c',
-        'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c',
-        'c', 'c', 'g', 'c', 'h', 'c', 'g', 'g', 'c', 'h', 'c', 'g', 'c', 'c',
-        'h', 'g', 'g', 'd', 'h', 'h', 'g', 'g', 'h', 'h', 'd', 'g', 'g', 'h',
+        ' ', ' ', ' ', ' ', ' ', 'c', 'c', 'c', 'c', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'c',
+        'c', 'c', 'c', 'c', 'c', 'c', 'c', ' ', ' ', ' ', ' ', ' ', 'c', 'c', 'c', 'c', 'c', 'c',
+        'c', 'c', 'c', 'c', ' ', ' ', ' ', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c',
+        'c', ' ', ' ', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', ' ', ' ', 'c',
+        'c', 'b', 'b', 'c', 'c', 'c', 'c', 'b', 'b', 'c', 'c', ' ', 'c', 'c', 'c', 'b', 'b', 'c',
+        'c', 'c', 'c', 'b', 'b', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c',
+        'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c',
+        'c', 'c', 'b', 'b', 'c', 'c', 'b', 'b', 'c', 'c', 'b', 'b', 'c', 'c', 'c', 'b', 'c', 'c',
+        'b', 'b', 'c', 'c', 'b', 'b', 'c', 'c', 'b', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c',
+        'c', 'c', 'c', 'c', 'c', 'c', 'c', 'c', 'g', 'c', 'h', 'c', 'g', 'g', 'c', 'h', 'c', 'g',
+        'c', 'c', 'h', 'g', 'g', 'd', 'h', 'h', 'g', 'g', 'h', 'h', 'd', 'g', 'g', 'h',
     ];
 
     const GHOST_COLUMNS: u32 = 14;
@@ -91,7 +85,7 @@ pub fn pacman() -> ril::Result<()> {
     let ghost_agro_frame_1: Vec<Rgba> = ghost_agro
         .iter()
         .map(|val| match val {
-            'a'=> color("red"),
+            'a' => color("red"),
             'b' => color("white"),
             'c' => color("blue"),
             'd' => color("black"),
@@ -103,10 +97,10 @@ pub fn pacman() -> ril::Result<()> {
         })
         .collect();
 
-        let ghost_agro_frame_2: Vec<Rgba> = ghost_agro
+    let ghost_agro_frame_2: Vec<Rgba> = ghost_agro
         .iter()
         .map(|val| match val {
-            'a'=> color("red"),
+            'a' => color("red"),
             'b' => color("white"),
             'c' => color("blue"),
             'd' => color("black"),
@@ -118,10 +112,10 @@ pub fn pacman() -> ril::Result<()> {
         })
         .collect();
 
-        let ghost_scared_frame_1: Vec<Rgba> = ghost_scared
+    let ghost_scared_frame_1: Vec<Rgba> = ghost_scared
         .iter()
         .map(|val| match val {
-            'a'=> color("red"),
+            'a' => color("red"),
             'b' => color("white"),
             'c' => color("blue"),
             'd' => color("black"),
@@ -133,10 +127,10 @@ pub fn pacman() -> ril::Result<()> {
         })
         .collect();
 
-        let ghost_scared_frame_2: Vec<Rgba> = ghost_scared
+    let ghost_scared_frame_2: Vec<Rgba> = ghost_scared
         .iter()
         .map(|val| match val {
-            'a'=> color("red"),
+            'a' => color("red"),
             'b' => color("white"),
             'c' => color("blue"),
             'd' => color("black"),
@@ -176,19 +170,43 @@ pub fn pacman() -> ril::Result<()> {
         let mut image: Image<Rgba> = Image::new(columns, rows, color("black"));
         if pacman_right {
             match frame.next().unwrap() {
-                1 => {image.paste(x as u32 + 2 + GHOST_COLUMNS, y, &pac_img_right_1); image.paste(x as u32, y, &ghost_img_agro_1)},
-                2 => {image.paste(x as u32 + 2 + GHOST_COLUMNS, y, &pac_img_right_2); image.paste(x as u32, y, &ghost_img_agro_2)},
-                3 => {image.paste(x as u32 + 2 + GHOST_COLUMNS, y, &pac_img_right_3); image.paste(x as u32, y, &ghost_img_agro_1)},
-                4 => {image.paste(x as u32 + 2 + GHOST_COLUMNS, y, &pac_img_right_2); image.paste(x as u32, y, &ghost_img_agro_2)},
+                1 => {
+                    image.paste(x as u32 + 2 + GHOST_COLUMNS, y, &pac_img_right_1);
+                    image.paste(x as u32, y, &ghost_img_agro_1)
+                }
+                2 => {
+                    image.paste(x as u32 + 2 + GHOST_COLUMNS, y, &pac_img_right_2);
+                    image.paste(x as u32, y, &ghost_img_agro_2)
+                }
+                3 => {
+                    image.paste(x as u32 + 2 + GHOST_COLUMNS, y, &pac_img_right_3);
+                    image.paste(x as u32, y, &ghost_img_agro_1)
+                }
+                4 => {
+                    image.paste(x as u32 + 2 + GHOST_COLUMNS, y, &pac_img_right_2);
+                    image.paste(x as u32, y, &ghost_img_agro_2)
+                }
                 _ => println!("Unknown animation frame"),
             }
             x += 1;
         } else {
             match frame.next().unwrap() {
-                1 => {image.paste(x as u32 + 2 + GHOST_COLUMNS, y, &pac_img_left_1); image.paste(x as u32, y, &ghost_img_scared_1)},
-                2 => {image.paste(x as u32 + 2 + GHOST_COLUMNS, y, &pac_img_left_2); image.paste(x as u32, y, &ghost_img_scared_2)},
-                3 => {image.paste(x as u32 + 2 + GHOST_COLUMNS, y, &pac_img_left_3); image.paste(x as u32, y, &ghost_img_scared_1)},
-                4 => {image.paste(x as u32 + 2 + GHOST_COLUMNS, y, &pac_img_left_2); image.paste(x as u32, y, &ghost_img_scared_2)},
+                1 => {
+                    image.paste(x as u32 + 2 + GHOST_COLUMNS, y, &pac_img_left_1);
+                    image.paste(x as u32, y, &ghost_img_scared_1)
+                }
+                2 => {
+                    image.paste(x as u32 + 2 + GHOST_COLUMNS, y, &pac_img_left_2);
+                    image.paste(x as u32, y, &ghost_img_scared_2)
+                }
+                3 => {
+                    image.paste(x as u32 + 2 + GHOST_COLUMNS, y, &pac_img_left_3);
+                    image.paste(x as u32, y, &ghost_img_scared_1)
+                }
+                4 => {
+                    image.paste(x as u32 + 2 + GHOST_COLUMNS, y, &pac_img_left_2);
+                    image.paste(x as u32, y, &ghost_img_scared_2)
+                }
                 _ => println!("Unknown animation frame"),
             }
             x -= 1;

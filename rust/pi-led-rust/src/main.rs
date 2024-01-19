@@ -5,6 +5,7 @@ use crate::effects::color_test::color_test;
 use crate::effects::displaytext::displaytext;
 use crate::effects::pacman::pacman;
 use crate::effects::pong::pong;
+use crate::effects::space_invaders::space_invaders;
 mod libs;
 #[cfg(target_arch = "arm")]
 use crate::libs::raspberrypi::render;
@@ -23,6 +24,7 @@ fn main() -> ril::Result<()> {
             "displaytext" => res = displaytext(),
             "pacman" => res = pacman(),
             "pong" => res = pong(),
+            "space_invaders" => res = space_invaders(),
             _ => println!("Unknown effect {}", e),
         };
     }
