@@ -4,6 +4,8 @@ use super::super::render;
 use ril::prelude::*;
 use ril::text::{TextLayout, TextSegment};
 
+// Display text on the LEDs using a font file to generate the characters
+// The message text is read from the config.toml file
 pub fn displaytext() -> ril::Result<()> {
     let columns = get_config().hardware.columns as u32;
     let rows = get_config().hardware.rows as u32;

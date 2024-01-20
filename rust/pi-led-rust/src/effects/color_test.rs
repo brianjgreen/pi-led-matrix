@@ -4,6 +4,7 @@ use super::super::render;
 use ril::prelude::*;
 use ril::text::{TextLayout, TextSegment};
 
+// Turn all LEDs the same color and display the color name
 pub fn color_test() -> ril::Result<()> {
     let columns = get_config().hardware.columns as u32;
     let rows = get_config().hardware.rows as u32;

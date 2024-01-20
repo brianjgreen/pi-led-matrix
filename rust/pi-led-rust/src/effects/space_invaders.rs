@@ -3,7 +3,9 @@ use super::super::libs::config::get_config;
 use super::super::render;
 use ril::prelude::*;
 
+// Space Invaders march across your LEDs om their way to an invasion
 pub fn space_invaders() -> ril::Result<()> {
+    // Pixels of the aliens
     let squid = [
         ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'a', 'a', 'a', ' ', ' ', ' ', ' ', ' ', ' ',
         ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'a', 'a', 'a', ' ', ' ', ' ', ' ',
@@ -73,6 +75,7 @@ pub fn space_invaders() -> ril::Result<()> {
     let columns = get_config().hardware.columns as u32;
     let rows = get_config().hardware.rows as u32;
 
+    // Add black and white to the alien pixels
     let squid_frame_1: Vec<Rgba> = squid
         .iter()
         .map(|val| match val {
@@ -128,6 +131,7 @@ pub fn space_invaders() -> ril::Result<()> {
         })
         .collect();
 
+    // Draw images of the alien animation frames
     let squid_1: Image<Rgba> = Image::from_pixels(ALIEN_COLUMNS, &squid_frame_1);
     let squid_2: Image<Rgba> = Image::from_pixels(ALIEN_COLUMNS, &squid_frame_2);
     let crab_1: Image<Rgba> = Image::from_pixels(ALIEN_COLUMNS, &crab_frame_1);
@@ -140,6 +144,8 @@ pub fn space_invaders() -> ril::Result<()> {
 
     let mut alien_right = true;
     let mut play_clock = get_config().effects.playtime;
+
+    // The aliens move with only 2 animation frames, they can move in any direction with these frames
     let mut frame = [1, 2].iter().cycle();
     while play_clock > 0 {
         play_clock -= 1;
@@ -163,6 +169,7 @@ pub fn space_invaders() -> ril::Result<()> {
             x -= 1;
         }
 
+        // Change direction when alien reaches end of LED field
         if x <= 0 {
             alien_right = true;
             y += ALIEN_ROWS / 2;
@@ -172,6 +179,7 @@ pub fn space_invaders() -> ril::Result<()> {
             y += ALIEN_ROWS / 2;
         }
 
+        // Show next wave of aliens when previous wave drops below screen
         if y > rows {
             y = 0;
         }

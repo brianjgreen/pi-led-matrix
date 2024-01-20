@@ -1,5 +1,6 @@
 use ril::prelude::*;
 
+// Name a color and return an Rgba pixel with that color
 pub fn color(color_name: &str) -> Rgba {
     let mut color: Rgba = Rgba::new(0, 0, 0, 255);
     match color_name {

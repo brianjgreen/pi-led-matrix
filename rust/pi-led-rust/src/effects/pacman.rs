@@ -3,6 +3,7 @@ use super::super::libs::config::get_config;
 use super::super::render;
 use ril::prelude::*;
 
+// Draw the pixles that make up pacman
 pub fn pacman() -> ril::Result<()> {
     let pacman_right = [
         ' ', ' ', ' ', ' ', 'a', 'a', 'a', 'a', 'a', ' ', ' ', ' ', ' ', ' ', ' ', 'a', 'a', 'a',
@@ -20,6 +21,7 @@ pub fn pacman() -> ril::Result<()> {
     const PACMAN_COLUMNS: u32 = 13;
     const PACMAN_ROWS: u32 = 13;
 
+    // Draw the pixels that make up the agressive ghost chasing pacman
     let ghost_agro = [
         ' ', ' ', ' ', ' ', ' ', 'a', 'a', 'a', 'a', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'a',
         'a', 'a', 'a', 'a', 'a', 'a', 'a', ' ', ' ', ' ', ' ', ' ', 'a', 'a', 'a', 'a', 'a', 'a',
@@ -34,6 +36,7 @@ pub fn pacman() -> ril::Result<()> {
         'a', 'a', 'f', 'e', 'e', 'd', 'f', 'f', 'e', 'e', 'f', 'f', 'd', 'e', 'e', 'f',
     ];
 
+    // Draw the pixels that make up the scared ghost running away from pacman
     let ghost_scared = [
         ' ', ' ', ' ', ' ', ' ', 'c', 'c', 'c', 'c', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'c',
         'c', 'c', 'c', 'c', 'c', 'c', 'c', ' ', ' ', ' ', ' ', ' ', 'c', 'c', 'c', 'c', 'c', 'c',
@@ -54,6 +57,7 @@ pub fn pacman() -> ril::Result<()> {
     let columns = get_config().hardware.columns as u32;
     let rows = get_config().hardware.rows as u32;
 
+    // Generate the pacman animation frames
     let pacman_right_frame_1: Vec<Rgba> = pacman_right
         .iter()
         .map(|val| match val {
@@ -82,6 +86,7 @@ pub fn pacman() -> ril::Result<()> {
         })
         .collect();
 
+    // Generate the agressive ghost animation frames
     let ghost_agro_frame_1: Vec<Rgba> = ghost_agro
         .iter()
         .map(|val| match val {
@@ -96,7 +101,6 @@ pub fn pacman() -> ril::Result<()> {
             _ => color("black"),
         })
         .collect();
-
     let ghost_agro_frame_2: Vec<Rgba> = ghost_agro
         .iter()
         .map(|val| match val {
@@ -112,6 +116,7 @@ pub fn pacman() -> ril::Result<()> {
         })
         .collect();
 
+    // Generate the scared ghost animation frames
     let ghost_scared_frame_1: Vec<Rgba> = ghost_scared
         .iter()
         .map(|val| match val {
@@ -126,7 +131,6 @@ pub fn pacman() -> ril::Result<()> {
             _ => color("black"),
         })
         .collect();
-
     let ghost_scared_frame_2: Vec<Rgba> = ghost_scared
         .iter()
         .map(|val| match val {
@@ -142,9 +146,12 @@ pub fn pacman() -> ril::Result<()> {
         })
         .collect();
 
+    // Create images of each frame of animation
+    // Pacman faces right
     let pac_img_right_1: Image<Rgba> = Image::from_pixels(PACMAN_COLUMNS, &pacman_right_frame_1);
     let pac_img_right_2: Image<Rgba> = Image::from_pixels(PACMAN_COLUMNS, &pacman_right_frame_2);
     let pac_img_right_3: Image<Rgba> = Image::from_pixels(PACMAN_COLUMNS, &pacman_right_frame_3);
+    // Pacman faces left
     let mut pac_img_left_1: Image<Rgba> = Image::from_pixels(PACMAN_COLUMNS, &pacman_right_frame_1);
     let mut pac_img_left_2: Image<Rgba> = Image::from_pixels(PACMAN_COLUMNS, &pacman_right_frame_2);
     let mut pac_img_left_3: Image<Rgba> = Image::from_pixels(PACMAN_COLUMNS, &pacman_right_frame_3);
@@ -152,6 +159,7 @@ pub fn pacman() -> ril::Result<()> {
     pac_img_left_2.mirror();
     pac_img_left_3.mirror();
 
+    // Create images of each frame of ghost animation
     let ghost_img_agro_1: Image<Rgba> = Image::from_pixels(GHOST_COLUMNS, &ghost_agro_frame_1);
     let ghost_img_agro_2: Image<Rgba> = Image::from_pixels(GHOST_COLUMNS, &ghost_agro_frame_2);
     let ghost_img_scared_1: Image<Rgba> = Image::from_pixels(GHOST_COLUMNS, &ghost_scared_frame_1);
@@ -164,6 +172,9 @@ pub fn pacman() -> ril::Result<()> {
     }
     let mut pacman_right = true;
     let mut play_clock = get_config().effects.playtime;
+
+    // Pacman has 4 animation frames (frame 4 is identical to frame 2)
+    // Ghosts have 2 animation frames
     let mut frame = [1, 2, 3, 4].iter().cycle();
     while play_clock > 0 {
         play_clock -= 1;
@@ -211,12 +222,15 @@ pub fn pacman() -> ril::Result<()> {
             }
             x -= 1;
         }
+
+        // change direction when we get to the edge of the screen
         if x <= 0 {
             pacman_right = true;
         }
         if x > columns as i32 - PACMAN_COLUMNS as i32 {
             pacman_right = false;
         }
+        
         render(image);
     }
     Ok(())

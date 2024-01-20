@@ -5,6 +5,7 @@ use rand::prelude::*;
 use ril::draw::{Line, Rectangle};
 use ril::prelude::*;
 
+// Move the paddle as the ball approaches
 fn move_paddle(paddle_y: u32, ball_y: u32, y_max: u32) -> u32 {
     let mut new_paddle_y: u32 = paddle_y;
     let paddle_midpoint = 3;
@@ -20,6 +21,7 @@ fn move_paddle(paddle_y: u32, ball_y: u32, y_max: u32) -> u32 {
     new_paddle_y
 }
 
+// Automated pong game
 pub fn pong() -> ril::Result<()> {
     let paddle_height = 5; // should always be an odd number
     let mut x_vector: bool = true;
@@ -33,6 +35,7 @@ pub fn pong() -> ril::Result<()> {
     let x_midpoint: u32 = columns / 2;
     let y_midpoint = rows / 2;
 
+    // Place the ball in a random, starting location
     let mut rng = thread_rng();
     let mut x: u32 = rng.gen_range(x_min..x_max);
     let mut y: u32 = rng.gen_range(y_min + 1..y_max);
@@ -46,6 +49,7 @@ pub fn pong() -> ril::Result<()> {
         play_clock -= 1;
         let mut image: Image<Rgba> = Image::new(columns, rows, color("black"));
 
+        // the ball moves in approx. 45 degree angles
         if x_vector {
             if x + 1 <= x_min || x + 1 >= x_max {
                 x_vector = false;
@@ -66,6 +70,7 @@ pub fn pong() -> ril::Result<()> {
             }
         }
 
+        // Bounce off of paddles and walls
         if x_vector {
             x += 1;
         } else {
