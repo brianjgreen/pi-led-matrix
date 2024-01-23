@@ -230,7 +230,7 @@ pub fn pacman() -> ril::Result<()> {
         if x > columns as i32 - PACMAN_COLUMNS as i32 {
             pacman_right = false;
         }
-        
+
         render(image);
     }
     Ok(())

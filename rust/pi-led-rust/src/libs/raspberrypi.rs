@@ -39,7 +39,7 @@ pub fn render(mut image: Image<Rgba>) {
     }
     let mut y_range_reverse = y_range_forward.clone();
     y_range_reverse.reverse();
-    
+
     // Copy the image buffer into the LED driver memory buffer
     CONTROLLER.with(|controller| {
         let mut binding = controller.borrow_mut();
