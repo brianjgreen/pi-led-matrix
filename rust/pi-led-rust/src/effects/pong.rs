@@ -98,7 +98,7 @@ pub fn pong() -> ril::Result<()> {
         image.draw(&line);
 
         // Draw dashed line in middle of field
-        for i in 1..7 {
+        for i in 1..rows / 4 {
             let rectangle: Rectangle<Rgba> = Rectangle::at(x_midpoint, i * 4)
                 .with_size(1, 2)
                 .with_fill(color("white"));
