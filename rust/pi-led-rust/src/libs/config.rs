@@ -30,6 +30,7 @@ pub struct Effects {
     // Various parameters used by the effects
     pub playtime: i64,
     pub fontpath: String,
+    pub imagepath: String,
     pub message: String,
     pub playlist: Array,
 }

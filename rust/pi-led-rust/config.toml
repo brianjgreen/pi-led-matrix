@@ -15,5 +15,6 @@ simupdatelimit = 66400
 playtime = 100
 fontpath = "../../fonts/dosis.ttf"
 message = "The Beverly"
+imagepath = "images/NFL_Logo.png"
 # End your playlist with "leds_off" to clear your LEDs
-playlist = ["pong", "displaytext", "pacman", "space_invaders", "color_test", "leds_off"]
+playlist = ["pong", "displaytext", "pacman", "space_invaders", "color_test", "displayimage", "leds_off"]
