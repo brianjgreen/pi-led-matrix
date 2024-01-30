@@ -132,12 +132,12 @@ pub fn space_invaders() -> ril::Result<()> {
         .collect();
 
     // Draw images of the alien animation frames
-    let squid_1: Image<Rgba> = Image::from_pixels(ALIEN_COLUMNS, &squid_frame_1);
-    let squid_2: Image<Rgba> = Image::from_pixels(ALIEN_COLUMNS, &squid_frame_2);
-    let crab_1: Image<Rgba> = Image::from_pixels(ALIEN_COLUMNS, &crab_frame_1);
-    let crab_2: Image<Rgba> = Image::from_pixels(ALIEN_COLUMNS, &crab_frame_2);
-    let octopus_1: Image<Rgba> = Image::from_pixels(ALIEN_COLUMNS, &octopus_frame_1);
-    let octopus_2: Image<Rgba> = Image::from_pixels(ALIEN_COLUMNS, &octopus_frame_2);
+    let squid_1: Image<Rgba> = Image::from_pixels(ALIEN_COLUMNS, squid_frame_1);
+    let squid_2: Image<Rgba> = Image::from_pixels(ALIEN_COLUMNS, squid_frame_2);
+    let crab_1: Image<Rgba> = Image::from_pixels(ALIEN_COLUMNS, crab_frame_1);
+    let crab_2: Image<Rgba> = Image::from_pixels(ALIEN_COLUMNS, crab_frame_2);
+    let octopus_1: Image<Rgba> = Image::from_pixels(ALIEN_COLUMNS, octopus_frame_1);
+    let octopus_2: Image<Rgba> = Image::from_pixels(ALIEN_COLUMNS, octopus_frame_2);
 
     let mut x: i32 = 0;
     let mut y: u32 = 0;

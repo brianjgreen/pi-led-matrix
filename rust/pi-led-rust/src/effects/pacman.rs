@@ -160,10 +160,10 @@ pub fn pacman() -> ril::Result<()> {
     pac_img_left_3.mirror();
 
     // Create images of each frame of ghost animation
-    let ghost_img_agro_1: Image<Rgba> = Image::from_pixels(GHOST_COLUMNS, &ghost_agro_frame_1);
-    let ghost_img_agro_2: Image<Rgba> = Image::from_pixels(GHOST_COLUMNS, &ghost_agro_frame_2);
-    let ghost_img_scared_1: Image<Rgba> = Image::from_pixels(GHOST_COLUMNS, &ghost_scared_frame_1);
-    let ghost_img_scared_2: Image<Rgba> = Image::from_pixels(GHOST_COLUMNS, &ghost_scared_frame_2);
+    let ghost_img_agro_1: Image<Rgba> = Image::from_pixels(GHOST_COLUMNS, ghost_agro_frame_1);
+    let ghost_img_agro_2: Image<Rgba> = Image::from_pixels(GHOST_COLUMNS, ghost_agro_frame_2);
+    let ghost_img_scared_1: Image<Rgba> = Image::from_pixels(GHOST_COLUMNS, ghost_scared_frame_1);
+    let ghost_img_scared_2: Image<Rgba> = Image::from_pixels(GHOST_COLUMNS, ghost_scared_frame_2);
 
     let mut x: i32 = 0;
     let mut y: u32 = 2;

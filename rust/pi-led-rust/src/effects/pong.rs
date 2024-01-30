@@ -51,23 +51,19 @@ pub fn pong() -> ril::Result<()> {
 
         // the ball moves in approx. 45 degree angles
         if x_vector {
-            if x + 1 <= x_min || x + 1 >= x_max {
+            if x + 1 >= x_max {
                 x_vector = false;
             }
-        } else {
-            if x - 1 <= x_min || x - 1 >= x_max {
-                x_vector = true;
-            }
+        } else if x - 1 <= x_min {
+            x_vector = true;
         }
 
         if y_vector {
-            if y + 1 <= y_min || y + 1 >= y_max {
+            if y + 1 >= y_max {
                 y_vector = false;
             }
-        } else {
-            if y - 1 <= y_min || y - 1 >= y_max {
-                y_vector = true;
-            }
+        } else if y - 1 <= y_min {
+            y_vector = true;
         }
 
         // Bounce off of paddles and walls
