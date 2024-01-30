@@ -1,6 +1,7 @@
 use ril::prelude::*;
 mod effects;
 use effects::color_test::color_test;
+use effects::displayimage::displayimage;
 use effects::displaytext::displaytext;
 use effects::leds_off::leds_off;
 use effects::pacman::pacman;
@@ -20,14 +21,15 @@ pub fn led_render(image: Image<Rgba>) {
 fn main() -> ril::Result<()> {
     let mut res = Ok(());
     for e in get_config().effects.playlist {
-        match e.as_str().unwrap() {
-            "color_test" => res = color_test(),
-            "displaytext" => res = displaytext(),
-            "leds_off" => res = leds_off(),
-            "pacman" => res = pacman(),
-            "pong" => res = pong(),
-            "space_invaders" => res = space_invaders(),
-            _ => println!("Unknown effect {}", e),
+        res = match e.as_str().unwrap() {
+            "color_test" => color_test(),
+            "displayimage" => displayimage(),
+            "displaytext" => displaytext(),
+            "leds_off" => leds_off(),
+            "pacman" => pacman(),
+            "pong" => pong(),
+            "space_invaders" => space_invaders(),
+            _ => color_test(),
         };
     }
     res

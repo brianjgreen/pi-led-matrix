@@ -29,7 +29,7 @@ pub fn render(mut image: Image<Rgba>) {
     let columns = get_config().hardware.columns as usize * get_config().hardware.simscale as usize;
     let rows: usize = get_config().hardware.rows as usize * get_config().hardware.simscale as usize;
     image.resize(columns as u32, rows as u32, Nearest);
-    let mut buffer: Vec<u32> = vec![0; 600 * 300];
+    let mut buffer: Vec<u32> = vec![0; columns * rows];
     let mut i = 0;
 
     // Translate the image grid into a stream of Rgba u8 structures
