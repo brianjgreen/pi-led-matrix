@@ -2,7 +2,6 @@ use super::super::libs::config::get_config;
 use super::super::render;
 use ril::prelude::*;
 use ril::ResizeAlgorithm::Hamming;
-use std::{thread, time};
 
 // Turn off all LEDs
 pub fn displayimage() -> ril::Result<()> {

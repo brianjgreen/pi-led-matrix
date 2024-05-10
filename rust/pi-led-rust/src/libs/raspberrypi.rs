@@ -15,7 +15,7 @@ thread_local!(static CONTROLLER: RefCell<Controller> = RefCell::new(ControllerBu
 .channel(
     0, // Channel Index
     ChannelBuilder::new()
-        .pin(get_config_i64("pin") as i32) // GPIO 18 = PWM0
+        .pin(get_config().hardware.pin as i32) // GPIO 18 = PWM0
         .count(get_config().hardware.columns as i32 * get_config().hardware.rows as i32) // Number of LEDs
         .strip_type(StripType::Ws2812)
         .brightness(get_config().hardware.brightness as u8) // default: 255
