@@ -19,7 +19,9 @@ pub struct Hardware {
     // Parameters that describe the hardware
     pub columns: i64,
     pub rows: i64,
+    #[cfg(target_arch = "arm")]
     pub pin: i64,
+    #[cfg(target_arch = "arm")]
     pub brightness: i64,
     pub simscale: i64,
     pub simupdatelimit: i64,
